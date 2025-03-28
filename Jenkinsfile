@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'windows'
+           }
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "MVN3"
@@ -15,7 +17,7 @@ pipeline {
         
         stage('Build') {
             steps {
-                sh "mvn -Dmaven.test.failure.ignore=true -f api-gateway/ clean package"
+                bat "mvn -Dmaven.test.failure.ignore=true -f api-gateway/ clean package"
             }
                             
         }
@@ -33,11 +35,8 @@ pipeline {
         }
             
         stage('test') {
-         agent {
-        label 'linux'
-           }
             steps {
-                sh "echo testing"
+              bat "echo testing"
             }
         }
     }
